@@ -10,9 +10,7 @@ import cv2
 import os
 from werkzeug.utils import secure_filename
 
-
 app = Flask(__name__)
-
 
 #camera declaratie (welke input?)
 camera = cv2.VideoCapture(0)
@@ -23,7 +21,6 @@ app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-
 
 #def Toegestaande uploads:
 def allowed_file(filename):
@@ -40,9 +37,6 @@ def gen_frames():
             frame = buffer.tobytes()
             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'r\n') #concat frame one by one and show result
             
-
-
-
 #livestream pagina
 @app.route('/livestream')
 def cam():
@@ -89,6 +83,11 @@ def display_image(filename):
 @app.route('/info')
 def info():
 	return render_template("info.html")
+    
+# pagina voor gallerij 
+@app.route('/gallery')
+def gallery():
+	return render_template("gallery.html")
 
 # main
 if __name__ == "__main__":
