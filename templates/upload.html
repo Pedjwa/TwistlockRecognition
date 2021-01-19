@@ -1,0 +1,117 @@
+
+
+<!doctype html>
+<title>Siemens Machine Learning</title>
+
+
+<body style="background-color:WhiteSmoke;">
+
+
+
+<head>
+
+<div style="margin-left:80px;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Siemens-logo.svg/1200px-Siemens-logo.svg.png" alt="Siemens Logo" width='200'>
+<h0 style="font-size:10px;">Machine learning</h0>
+</div>
+
+<hr>
+
+<div style="margin-left:80px;">
+<p>
+<h0 style="font-size:35px;">Select an image with twistlocks or cornercastings</h0>
+</p>
+</div>
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#mySidenav a {
+  position: absolute;
+  left: -80px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+#upl {
+  top: 75px;
+  background-color: #1dbfbf;
+}
+
+#cam {
+  top: 160px;
+  background-color: #1dbfbf;
+}
+
+#about {
+  top: 222px;
+  background-color: #1dbfbf;
+}
+
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+    <a href="/" id="upl">Upload an image</a>
+    <a href="livestream" id="cam">Livestream</a>
+    <a href="info" id="about">Information</a>
+</div>
+
+
+
+<div style="margin-left:80px;">
+    <p>
+    	{% with messages = get_flashed_messages() %}
+    	  {% if messages %}
+    		<ul class=flashes>
+    		{% for message in messages %}
+    		  <li>{{ message }}</li>
+    		{% endfor %}
+    		</ul>
+    	  {% endif %}
+    	{% endwith %}
+    </p>
+   
+<br>
+    
+
+    <form method="post" action="/" enctype="multipart/form-data">
+        <dl>
+    		<p>
+    			<input type="file" name="files[]" autocomplete="off" required>
+    		</p>
+        </dl>
+        <p>
+    		<input type="submit" value="Submit and tell me what it is">
+    	</p>
+    </form>
+</div>
+<br>
+<hr>
+<div style="margin-left:80px;">
+{% if filenames %}
+	{% for filename in filenames %}
+		<div>
+			<img src="{{ url_for('display_image', filename=filename) }}" width="25%">
+		</div>
+	{% endfor %}
+{% endif %}
+</div>
+<hr>
+<div style="margin-left:80px;">
+<img src="https://www.linkmagazine.nl/14_12_29/wp-content/uploads/haagse.jpg" alt="SMR Logo" width='700'>
+
+</div>
+
+</body>
