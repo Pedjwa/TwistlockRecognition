@@ -35,10 +35,6 @@ def upload_form():
 # functionaliteit uploaden
 @app.route('/', methods=['POST'])
 def upload_image():
-    labeledFiles = glob.glob('.\static\recognized\labels\\*')
-    for fy in labeledFiles:
-        os.remove(fy)
-
     if 'files[]' not in request.files:
         flash('No file part')
         return redirect(request.url)
@@ -62,12 +58,13 @@ def upload_image():
                 for x in f:
                     val = x.strip().split(' ')   # tokenize the row based on spaces
                     data.append(val)
-            
+                    
             for z in range(len(data)):
                 for y in range(1,5):
                     data[z][y] = round(float(data[z][y]) * 416, 2)
-            
-            print(data)
+                    
+            os.remove(labelsTxt)
+                    
         return render_template('upload.html', filenames=file_names, data=data)
 
 # weergeven geuploadde afbeeldingen
