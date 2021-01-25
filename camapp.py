@@ -12,8 +12,8 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-#camera declaratie (welke input?)
-camera = cv2.VideoCapture(0)
+# #camera declaratie (welke input?)
+# camera = cv2.VideoCapture(0)
 
 #declaraties voor uploads:  
 UPLOAD_FOLDER = "./static/uploads"
@@ -26,26 +26,26 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-#Livecam
-def gen_frames():
-    while True:
-        success, frame = camera.read()  #read camera frame
-        if not success:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'r\n') #concat frame one by one and show result
+# #Livecam
+# def gen_frames():
+#     while True:
+#         success, frame = camera.read()  #read camera frame
+#         if not success:
+#             break
+#         else:
+#             ret, buffer = cv2.imencode('.jpg', frame)
+#             frame = buffer.tobytes()
+#             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'r\n') #concat frame one by one and show result
             
 #livestream pagina
-@app.route('/livestream')
-def cam():
-    return render_template('cam.html')
+# @app.route('/livestream')
+# def cam():
+#     return render_template('cam.html')
 
 #camerabeeld (wordt weergegeven op livestream pagina)
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+# @app.route('/video_feed')
+# def video_feed():
+#     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # pagina voor uploaden 
 @app.route('/')
@@ -70,8 +70,9 @@ def upload_image():
 		#else:
 		#	flash('Allowed image types are -> png, jpg, jpeg, gif')
 		#	return redirect(request.url)
-
-    return render_template('upload.html', filenames=file_names)
+        
+        data = [[694.20, 116.37, 995.70, 441.81, 0.66, 1.0], [71.19, 26.40, 573.51, 459.90, 0.32, 1.0]]
+        return render_template('upload.html', filenames=file_names, data=data)
 
 # weergeven geuploadde afbeeldingen
 @app.route('/static/recognized/<filename>')

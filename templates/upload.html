@@ -3,34 +3,6 @@
 <!doctype html>
 <title>Siemens Machine Learning</title>
 
-
-<body style="background-color:WhiteSmoke;">
-
-
-
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8"/>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.11/dist/css/uikit.min.css" />
-	<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.11/dist/js/uikit.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.11/dist/js/uikit-icons.min.js"></script>
-
-<div style="margin-left:80px;">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Siemens-logo.svg/1200px-Siemens-logo.svg.png" alt="Siemens Logo" width='200'>
-<h0 style="font-size:10px;">Machine learning</h0>
-</div>
-
-<hr>
-
-<div style="margin-left:80px;">
-<p>
-<h0 style="font-size:35px;">Select an image with twistlocks or cornercastings</h0>
-</p>
-</div>
-
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 #mySidenav a {
   position: absolute;
@@ -53,74 +25,154 @@
   background-color: #1dbfbf;
 }
 
-#cam {
+#about {
   top: 135px;
   background-color: #1dbfbf;
 }
 
-#about {
+#gal {
   top: 200px;
   background-color: #1dbfbf;
 }
 
-#gal {
-  top: 265px;
-  background-color: #1dbfbf;
-}
+TABLE    { border-collapse: collapse; }
+.kg1     { width: 80px; color: #000000; background-color: #F0F0F0; }
+.kg2     { border-left: 2px solid #C0C0C0; width: 60px; }
+THEAD    { border-top: 2px solid #C0C0C0;
+           border-bottom: 2px solid #C0C0C0;
+           color: #000000; background-color: #F0F0F0; }
+TBODY    { border-top: 2px solid #C0C0C0;
+           border-bottom: 2px solid #C0C0C0; }
+COL      { border-left: 1px solid #C0C0C0; }
+TR       { border-top: 1px solid #C0C0C0; }
+TH       { text-align: left; width: 80px; }
+THEAD TH { text-align: center; vertical-align: top; }
+TD       { text-align: center; width: 80px; }
 
 </style>
-</head>
-<body>
 
-<div id="mySidenav" class="sidenav">
-    <a href="/" id="upl">Upload</a>
-    <a href="livestream" id="cam">Livestream</a>
-    <a href="info" id="about">Information</a>
-	<a href="gallery" id="gal">Gallery</a>
-</div>
+<body style="background-color:WhiteSmoke;">
 
-<div style="margin-left:80px;">
-    <p>
-    	{% with messages = get_flashed_messages() %}
-    	  {% if messages %}
-    		<ul class=flashes>
-    		{% for message in messages %}
-    		  <li>{{ message }}</li>
-    		{% endfor %}
-    		</ul>
-    	  {% endif %}
-    	{% endwith %}
-    </p>
-   
-<br>
+    <head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta charset="utf-8"/>
+    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.11/dist/css/uikit.min.css" />
+    	<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.11/dist/js/uikit.min.js"></script>
+    	<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.11/dist/js/uikit-icons.min.js"></script>
+
+        <div style="margin-left:80px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Siemens-logo.svg/1200px-Siemens-logo.svg.png" alt="Siemens Logo" width='200'>
+            <h0 style="font-size:10px;">Machine learning</h0>
+        </div>
+
+<hr>
+
+        <div style="margin-left:80px;">
+            <p>
+                <h0 style="font-size:35px;">Select an image with twistlocks or cornercastings</h0>
+            </p>
+        </div>
+
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+</body>
+
+<body style="background-color:WhiteSmoke;">
     
+    <div id="mySidenav" class="sidenav">
+        <a href="/" id="upl">Upload</a>
+    	<a href="gallery" id="gal">Gallery</a>	     
+    	<a href="info" id="about">Information</a>
+    </div>
 
-    <form method="post" action="/" enctype="multipart/form-data">
-        <dl>
-    		<p>
-    			<input type="file" name="files[]" autocomplete="off" required>
-    		</p>
-        </dl>
+    <div style="margin-left:80px;">
         <p>
-    		<input type="submit" value="Submit and tell me what it is">
-    	</p>
-    </form>
-</div>
+        	{% with messages = get_flashed_messages() %}
+        	  {% if messages %}
+        		<ul class=flashes>
+        		{% for message in messages %}
+        		  <li>{{ message }}</li>
+        		{% endfor %}
+        		</ul>
+        	  {% endif %}
+        	{% endwith %}
+        </p>
+    </div>
+    
+    <div style="margin-left:80px;">
+    
+<br>
+        <form method="post" action="/" enctype="multipart/form-data">
+            <dl>
+        		<p>
+        			<input type="file" name="files[]" autocomplete="off" required>
+        		</p>
+            </dl>
+            
+            <p>
+        		<input type="submit" value="Submit and tell me what it is">
+        	</p>
+        </form>
+    </div>
+    
 <br>
 <hr>
-<div style="margin-left:80px;">
-{% if filenames %}
+
+    <div style="margin-left:80px;">
+        {% if filenames %}
 	{% for filename in filenames %}
-		<div>
-			<img src="{{ url_for('display_image', filename=filename) }}" width="25%">
-		</div>
+    	 
+    	
+            	<TABLE>
+            	   <CAPTION><B>Data</B></CAPTION>
+                    <COLGROUP></COLGROUP>
+                    <COLGROUP SPAN="6"><COL><COL><COL><COL><COL><COL></COLGROUP>
+                    <THEAD>
+                        <TR>
+                            <TH>Class</TH><TH>Confidence</TH><TH>x1</TH>
+                            <TH>y1</TH><TH>x2</TH><TH>y2</TH>
+                        </TR>
+                    
+                    </THEAD>
+                     
+                    </TABLE>
+        {% for element in data[0:] %}
+         
+                    <TABLE>
+                  
+                     
+                     <COLGROUP></COLGROUP>
+                    <COLGROUP SPAN="6"><COL><COL><COL><COL><COL><COL></COLGROUP>
+                    <TBODY>    
+                                    
+                        <TR>
+                            <TD>{{element[5]}}</TD><TD>{{element[4]}}</TD><TD>{{element[0]}}</TD>
+                            <TD>{{element[1]}}</TD><TD>{{element[2]}}</TD><TD>{{element[4]}}</TD>
+                        </TR>                   
+                    </TBODY>  
+                    
+                </TABLE>
+            
+        {% endfor %} 
+        <br>
+        Class 0.0 = Cornercasting 
+        <br>
+        Class 1.0 = Twistlock
+        
+     
+	<div>
+		<img src="{{ url_for('display_image', filename=filename) }}" width="25%">
+	</div>
 	{% endfor %}
 {% endif %}
-</div>
+    </div>
 <hr>
-<div style="margin-left:80px;">
-<img src="https://www.linkmagazine.nl/14_12_29/wp-content/uploads/haagse.jpg" alt="SMR Logo" width='700'>
 
-</div>
+    <div style="margin-left:80px;">
+        <img src="https://www.linkmagazine.nl/14_12_29/wp-content/uploads/haagse.jpg" alt="SMR Logo" width='700'>
+    </div>
 
 </body>
