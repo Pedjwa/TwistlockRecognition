@@ -12,9 +12,12 @@ import torch
 from PIL import Image
 from werkzeug.utils import secure_filename
 import time
-import glob
 
 app = Flask(__name__)
+
+# Model
+model = torch.hub.load('ultralytics/yolov5', 'custom', path_or_model='weights/best.pt', force_reload=True).autoshape() 
+model.eval()
 
 #declaraties voor uploads:  
 UPLOAD_FOLDER = "./static/uploads"
@@ -35,9 +38,11 @@ def upload_form():
 # functionaliteit uploaden
 @app.route('/', methods=['POST'])
 def upload_image():
-    labeledFiles = glob.glob('.\static\recognized\labels\\*')
-    for fy in labeledFiles:
-        os.remove(fy)
+    # if os.path.exists("./static/results0.jpg"):
+      # os.remove("./static/results0.jpg")
+      # print("Bestand verwijderd!")
+    # else:
+      # print("The file does not exist") 
 
     if 'files[]' not in request.files:
         flash('No file part')
@@ -53,21 +58,37 @@ def upload_image():
             callProgram = str("python detect.py --source .\\static\\uploads\\" + filename + " --weights weights\\best.pt --save-txt --save-conf")
             os.system(callProgram)
             
+            # # Open image
+            # imgName = './static/uploads/' + filename
+            # img = Image.open(imgName)  # PIL image
+            # # Inference
+            # results = model(img, size=416)  # includes NMS
+            # # Results
+            # results.save()  # 
+            # data = [ ]
+            # for object in range(len(results.xyxy[0])):
+                # data.append([])
+                # for val in range(len(results.xyxy[0][object])):
+                    # i = round(results.xyxy[0][object][val].item(), 2)
+                    # data[object].append(i)
+            # print(data)
+            # data = [[694.20, 116.37, 995.70, 441.81, 0.66, 1.0], [71.19, 26.40, 573.51, 459.90, 0.32, 1.0]]
             txtfile = filename[:-3]
             txtfile = txtfile + 'txt'
             labelsTxt = './static/recognized/labels/' + txtfile
-
+            # f = open(labelsTxt, "r")
+            # print(f.read()) 
+            # f.close()
             data = [ ]
             with open(labelsTxt, 'r') as f:
                 for x in f:
-                    val = x.strip().split(' ')   # tokenize the row based on spaces
-                    data.append(val)
-            
-            for z in range(len(data)):
-                for y in range(1,5):
-                    data[z][y] = round(float(data[z][y]) * 416, 2)
-            
+                    tokens = x.strip().split(' ')   # tokenize the row based on spaces
+                    data.append(tokens)
+                    # for line in f:
+                        # tokens = line.strip().split(' ')   # tokenize the row based on spaces
+                        # myList.append(tokens)
             print(data)
+            
         return render_template('upload.html', filenames=file_names, data=data)
 
 # weergeven geuploadde afbeeldingen
