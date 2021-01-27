@@ -46,7 +46,7 @@ def upload_image():
             file_names.append(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             
-            callProgram = str("python detect.py --source .\\static\\uploads\\" + filename + " --weights weights\\best.pt --save-txt --save-conf")
+            callProgram = str("python detect.py --source .\\static\\uploads\\" + filename + " --weights weights\\best.pt --conf 0.75 --save-txt --save-conf")
             os.system(callProgram)
             
             txtfile = filename[:-3]
@@ -64,7 +64,9 @@ def upload_image():
                     data[z][y] = round(float(data[z][y]) * 416, 2)
                     
             os.remove(labelsTxt)
-                    
+            print('\n', filename)
+            print('\n', data[0])
+            print('\n', data[1])
         return render_template('upload.html', filenames=file_names, data=data)
 
 # weergeven geuploadde afbeeldingen
@@ -85,5 +87,5 @@ def gallery():
 
 # main
 if __name__ == "__main__":
-    app.run(debug=True)  #connect to http://127.0.0.1:5000/
+    app.run(debug=True, host='192.168.0.187')  #connect to http://127.0.0.1:5000/
     #app.run(debug=True, host= '172.20.10.3') #connect to http://172.20.10.3:5000/
